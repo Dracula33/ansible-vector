@@ -1,31 +1,23 @@
 ---
-data_dir: /var/lib/vector
-sources:
-  test_logs:
-    type: demo_logs
-    format: json
+data_dir: {{ data_dir }}
+{% for block_of_param in ['sources','transforms','sinks'] %}
+{{ block_of_param }}:
+{% for block_name,block_val in config[block_of_param].items() %}
+  {{ block_name }}:
+{% for param_name, param_val in config[block_of_param][block_name].items() %}
+    {{ param_name }}: {% if param_val is string %}"{{ param_val }}"
+{% elif param_val is mapping %}
 
-transforms:
-  test_transform:
-    type: dedupe
-    inputs:
-      - test_logs
+{% for k,v in param_val.items() %}
+      {{ k }}: {{ v }}
+{% endfor %}
+{% elif param_val is sequence %}
 
-sinks:
-  debug_sink:
-    type: console
-    inputs:
-      - test_transform
-    target: stdout
-    encoding:
-      codec: json
+{% for n in param_val %}
+      - {{ n }}
+{% endfor %}
+{% else %}{{ param_val }}{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
 
-  test_sink:
-    type: clickhouse
-    inputs:
-      - test_transform
-    database: logs
-    endpoint: http://clickhouse:8123
-    table: test_table
-    skip_unknown_fields: true
-...

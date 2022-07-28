@@ -8,9 +8,9 @@ Type=simple
 User=root
 Group=root
 PIDFile=/var/run/vector.pid
-WorkingDirectory=/etc/vector-x86_64-unknown-linux-musl
+WorkingDirectory={{ vector_install_directory }}/vector-x86_64-unknown-linux-musl
 
-ExecStart=/usr/bin/vector --config /etc/vector-x86_64-unknown-linux-musl/config/config.yaml
+ExecStart=/usr/bin/vector --config {{ vector_install_directory }}/vector-x86_64-unknown-linux-musl/config/config.yaml
 
 Restart=on-failure
 RestartSec=30
