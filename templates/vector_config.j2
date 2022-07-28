@@ -16,7 +16,7 @@ data_dir: {{ data_dir }}
 {% for n in param_val %}
       - {{ n }}
 {% endfor %}
-{% else %}{{ param_val }}{% endif %}
+{% else %}{{ param_val|lower }}{% endif %}
 {% endfor %}
 {% endfor %}
 {% endfor %}
