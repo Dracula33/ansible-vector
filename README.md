@@ -1,31 +1,80 @@
-Role Name
+Ansible Vector
 =========
 
-A brief description of the role goes here.
-
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Simple role to install Vector
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+You can set some variables:
+1. Vector version that is going to be installed.
+```yaml
+vector_version: "0.23.0"
+```
 
-Dependencies
-------------
+2. Directory that vector is going to be installed in
+```yaml
+vector_install_directory: "/etc"
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+3. Directory where vector is going to store data
+```yaml
+data_dir: "/etc/vector"
+```
+
+4. Content of vector config file
+```yaml
+config:
+  sources:
+    test_logs:
+      type: demo_logs
+      format: json
+  transforms:
+    test_transform:
+      type: dedupe
+      inputs:
+        - test_logs
+  sinks:
+    debug_sink:
+      type: console
+      inputs:
+        - test_transform
+      target: stdout
+      encoding:
+        codec: json
+```
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- name: Install vector
+  hosts: vector
+  vars:
+    vector_install_dir: /etc
+    data_dir: /home/test
+    config:
+      sources:
+        test_logs:
+          type: demo_logs
+          format: json
+      transforms:
+        test_transform:
+          type: dedupe
+          inputs:
+            - test_logs
+      sinks:
+        debug_sink:
+          type: console
+          inputs:
+            - test_transform
+          target: stdout
+          encoding:
+            codec: json
+  roles:
+    - vector
+```
 
 License
 -------
@@ -35,4 +84,5 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+The role is created by Netology Student as a homework by Igor Soldatov.
+

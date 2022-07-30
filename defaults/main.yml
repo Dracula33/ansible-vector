@@ -23,11 +23,3 @@ config:
       target: stdout
       encoding:
         codec: json
-    test_sink:
-      type: clickhouse
-      inputs:
-        - test_transform
-      database: logs
-      endpoint: http://clickhouse:8123
-      table: test_table
-      skip_unknown_fields: true
