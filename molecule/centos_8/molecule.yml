@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: centos_8
+    image: centos:centos8
+    pre_build_image: true
+    privileged: true
+    command: /usr/sbin/init
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    env:
+      container: docker
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

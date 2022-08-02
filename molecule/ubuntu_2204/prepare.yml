@@ -1,0 +1,9 @@
+---
+- name: Preparing
+  hosts: all
+  tasks:
+
+    - name: install packages
+      ansible.builtin.apt:
+        name:
+          - sudo

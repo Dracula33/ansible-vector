@@ -1,0 +1,22 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: ubuntu_2204
+    image: ubuntu_with_init:22.04
+    pre_build_image: false
+    dockerfile: ./Docker/Dockerfile
+    privileged: true
+    command: /sbin/init
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    env:
+      container: docker
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

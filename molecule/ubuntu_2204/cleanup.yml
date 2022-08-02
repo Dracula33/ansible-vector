@@ -1,0 +1,6 @@
+---
+  - name: Cleanup
+    hosts: localhost
+    tasks:
+      - name: delete docker image
+        shell: docker stop ubuntu_2204 && docker rm ubuntu_2204 && docker rmi molecule_local/ubuntu_with_init:22.04

@@ -1,0 +1,13 @@
+---
+- name: Preparing
+  hosts: all
+  tasks:
+    - name: Change some files
+      ansible.builtin.shell: "sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*"
+
+    - name: Change one more files
+      ansible.builtin.shell: "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*"
+
+    - name: install sudo
+      ansible.builtin.dnf:
+        name: sudo

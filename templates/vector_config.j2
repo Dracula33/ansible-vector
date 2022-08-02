@@ -5,7 +5,7 @@ data_dir: {{ data_dir }}
 {% for block_name,block_val in config[block_of_param].items() %}
   {{ block_name }}:
 {% for param_name, param_val in config[block_of_param][block_name].items() %}
-    {{ param_name }}: {% if param_val is string %}"{{ param_val }}"
+    {{ param_name }}:{% if param_val is string %} "{{ param_val }}"
 {% elif param_val is mapping %}
 
 {% for k,v in param_val.items() %}
@@ -20,4 +20,3 @@ data_dir: {{ data_dir }}
 {% endfor %}
 {% endfor %}
 {% endfor %}
-
