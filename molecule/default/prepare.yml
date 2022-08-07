@@ -1,0 +1,7 @@
+---
+- name: Preparing
+  hosts: all
+  tasks:
+    - name: install sudo
+      ansible.builtin.yum:
+        name: sudo

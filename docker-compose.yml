@@ -1,0 +1,12 @@
+---
+version: "3"
+services:
+  tox:
+    container_name: tox
+    image: aragast/netology:latest
+    privileged: true
+    volumes:
+      - "../vector:/opt/vector-role"
+      - "/sys/fs/cgroup:/sys/fs/cgroup"
+    working_dir: /opt/vector-role
+    command: /usr/sbin/init
